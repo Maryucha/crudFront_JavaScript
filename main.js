@@ -19,5 +19,7 @@ const criarCliente = (client) => {
     setLocalStorage(bdCliente);
 }
 
+const lerCliente = () => getLocalStorage();
+
 document.getElementById('cadastrarCliente').addEventListener('click', openModal);
 document.getElementById('modalClose').addEventListener('click', closeModal);
