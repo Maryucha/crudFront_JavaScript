@@ -33,9 +33,17 @@ const updadeClient = (index, client) => {
     setLocalStorage(dbClient);
 }
 
-const salvarClient = (client) => {
+const salvarClient = () => {
     if(isValidFillds()){
-        console.log('cadastrando cliente');
+        const client = {
+            nome: document.getElementById('nome').value,
+            email: document.getElementById('email').value,
+            celular: document.getElementById('celular').value,
+            cidade: document.getElementById('cidade').value,
+        }
+        
+        criarClient(client);
+        alert('Cliente' + client.nome + 'Salvo com sucesso!');
     }
 }
 
