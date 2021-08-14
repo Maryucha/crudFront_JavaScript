@@ -1,13 +1,9 @@
 'use strict';
 
 const openModal = () => document.getElementById('modal').classList.add('active');
-const closeModal = () => document.getElementById('modal').classList.remove('active');
-
-const tempClient = {
-    nome: 'Gab',
-    email: 'gab@gmail.com',
-    celular: '48 98427-6739',
-    cidade: "São josé"
+const closeModal = () => {  
+    document.getElementById('modal').classList.remove('active');
+    limparCampos();
 }
 
 const getLocalStorage = () => JSON.parse(localStorage.getItem('db_local')) ?? []
@@ -34,17 +30,37 @@ const updadeClient = (index, client) => {
 }
 
 const salvarClient = () => {
-    if(isValidFillds()){
+    if(isValidFillds()) {
         const client = {
             nome: document.getElementById('nome').value,
             email: document.getElementById('email').value,
             celular: document.getElementById('celular').value,
             cidade: document.getElementById('cidade').value,
         }
-        
         criarClient(client);
-        alert('Cliente' + client.nome + 'Salvo com sucesso!');
+        alert('Cliente ' + client.nome + ' Salvo com sucesso!');
+        closeModal();
     }
+}
+
+const updateTabela = () => {
+    const dbClient = lerClient();
+    dbClient.forEach(criarLinha);
+
+}
+const criarLinha = (client) => {
+    const newLinha = document.createElement('tr');
+        newLinha.innerHTML = `
+        <td>${client.nome}</td>
+        <td>${client.email}</td>
+        <td>${client.celular}</td>
+        <td>${client.cidade}</td>
+        <td>
+            <button type="button" class="button green">editar</button>
+            <button type="button" class="button red">excluir</button>
+        </td>
+    `
+    document.querySelector('#tabelaClient>tbody').appendChild(newLinha);
 }
 
 const isValidFillds = () =>{
@@ -56,6 +72,8 @@ const limparCampos = () => {
     campos.forEach(field => field.value = "");
     document.getElementById('nome').dataset.index = "new";
 }
+
+updateTabela();
 
 document.getElementById('cadastrarCliente').addEventListener('click', openModal);
 document.getElementById('modalClose').addEventListener('click', closeModal);
