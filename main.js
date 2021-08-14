@@ -40,11 +40,18 @@ const salvarClient = () => {
         criarClient(client);
         alert('Cliente ' + client.nome + ' Salvo com sucesso!');
         closeModal();
+        updateTabela();
     }
+}
+
+const limparTabela = () => {
+    const rows = document.querySelectorAll('#tabelaClient>tbody tr');
+    rows.forEach(row => row.parentNode.removeChild(row));
 }
 
 const updateTabela = () => {
     const dbClient = lerClient();
+    limparTabela();
     dbClient.forEach(criarLinha);
 
 }
@@ -68,7 +75,7 @@ const isValidFillds = () =>{
 }
 
 const limparCampos = () => {
-    const campos = document.querySelectorAll('.modal-fild');
+    const campos = document.querySelectorAll('.modal-field');
     campos.forEach(field => field.value = "");
     document.getElementById('nome').dataset.index = "new";
 }
