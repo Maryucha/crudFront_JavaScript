@@ -55,7 +55,7 @@ const updateTabela = () => {
     dbClient.forEach(criarLinha);
 
 }
-const criarLinha = (client) => {
+const criarLinha = (client, index) => {
     const newLinha = document.createElement('tr');
         newLinha.innerHTML = `
         <td>${client.nome}</td>
@@ -63,8 +63,8 @@ const criarLinha = (client) => {
         <td>${client.celular}</td>
         <td>${client.cidade}</td>
         <td>
-            <button type="button" class="button green">editar</button>
-            <button type="button" class="button red">excluir</button>
+            <button type="button" class="button green" id="editar-${index}">Editar</button>
+            <button type="button" class="button red" id="deletar-${index}">Excluir</button>
         </td>
     `
     document.querySelector('#tabelaClient>tbody').appendChild(newLinha);
@@ -80,9 +80,16 @@ const limparCampos = () => {
     document.getElementById('nome').dataset.index = "new";
 }
 
+const editarDeletar = (evento) => {
+    if(evento.target.type == 'button') {
+        console.log(evento.target.id);
+    }
+}
+
 updateTabela();
 
 document.getElementById('cadastrarCliente').addEventListener('click', openModal);
 document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('salvar').addEventListener('click',salvarClient);
 document.getElementById('cancelar').addEventListener('click',limparCampos);
+document.querySelector('#tabelaClient>tbody').addEventListener('click',editarDeletar);
