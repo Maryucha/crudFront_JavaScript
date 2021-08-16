@@ -80,9 +80,28 @@ const limparCampos = () => {
     document.getElementById('nome').dataset.index = "new";
 }
 
+const editarCliente = () => {
+    const client = lerClient()[index];
+    client.index = index;
+    filtrarCampos(client);
+    openModal();
+}
+
 const editarDeletar = (evento) => {
     if(evento.target.type == 'button') {
-        console.log(evento.target.id);
+
+        const [ action, index ] = evento.target.id.split('-');
+        console.log(action);
+        if(action == 'editar'){
+            editarCliente(index);
+        }else{
+            const client = lerClient()[index];
+            const resposta = confirm(`Deseja realmente excluir o cliente ${client.nome}?`);
+            if(resposta){
+                deletarClient(index);
+                updateTabela();
+            }
+        }
     }
 }
 
