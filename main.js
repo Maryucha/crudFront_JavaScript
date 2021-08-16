@@ -37,10 +37,18 @@ const salvarClient = () => {
             celular: document.getElementById('celular').value,
             cidade: document.getElementById('cidade').value,
         }
-        criarClient(client);
-        alert('Cliente ' + client.nome + ' Salvo com sucesso!');
-        closeModal();
-        updateTabela();
+        const index = document.getElementById('nome').dataset.index;
+        if(index == 'new'){
+           criarClient(client);
+            alert('Cliente ' + client.nome + ' Salvo com sucesso!');
+            closeModal();
+            updateTabela(); 
+        }else{
+            updadeClient(index, client);
+            updateTabela();
+            closeModal();
+        }
+        
     }
 }
 
@@ -85,6 +93,7 @@ const preencherCampos = (client) => {
     document.getElementById('email').value = client.email;
     document.getElementById('celular').value = client.celular;
     document.getElementById('cidade').value = client.cidade;
+    document.getElementById('nome').dataset.index = client.index;
 }
 
 const editarCliente = (index) => {
