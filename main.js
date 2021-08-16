@@ -80,10 +80,17 @@ const limparCampos = () => {
     document.getElementById('nome').dataset.index = "new";
 }
 
-const editarCliente = () => {
+const preencherCampos = (client) => {
+    document.getElementById('nome').value = client.nome;
+    document.getElementById('email').value = client.email;
+    document.getElementById('celular').value = client.celular;
+    document.getElementById('cidade').value = client.cidade;
+}
+
+const editarCliente = (index) => {
     const client = lerClient()[index];
     client.index = index;
-    filtrarCampos(client);
+    preencherCampos(client);
     openModal();
 }
 
@@ -91,7 +98,6 @@ const editarDeletar = (evento) => {
     if(evento.target.type == 'button') {
 
         const [ action, index ] = evento.target.id.split('-');
-        console.log(action);
         if(action == 'editar'){
             editarCliente(index);
         }else{
